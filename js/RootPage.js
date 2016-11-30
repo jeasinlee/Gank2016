@@ -8,109 +8,95 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    Image,
+    View,
+} from 'react-native';
 
-import { showToast } from './components/Toast';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import GankRecommendPage from './pages/GankRecommendPage';
 import GirlPage from './pages/GirlPage';
 import CollectListPage from './pages/CollectListPage';
+import {
+    Router,
+    Scene,
+    Actions,
+    TabBar,
+    Reducer
+} from 'react-native-router-flux';
+import styles from './style/SplashStyle';
 
 const mapStateToProps = state => ({
-    router: state.router,
+    router: state.routes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators({
-        ...routerActions,
+        ...Actions,
     }, dispatch),
     dispatch,
 });
 
-const defaultSchema = {
-    navBar: NavBar,
-    navLeftColor: '#FFFFFF',
-    navTint: '#224655',
-    navTitleColor: '#FFFFFF',
-    navTitleStyle: {
-        fontFamily: 'Avenir Next',
-        fontSize: 18,
-    },
-    statusStyle: 'light-content',
-    tabBar: TabBar,
+const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
+    const style = {
+        flex: 1,
+        backgroundColor: '#fff',
+        shadowColor: null,
+        shadowOffset: null,
+        shadowOpacity: null,
+        shadowRadius: null,
+    };
+    if (computedProps.isActive) {
+        style.marginTop = computedProps.hideNavBar ? 0 : 64;
+        style.marginBottom = computedProps.hideTabBar ? 0 : 50;
+    }
+    return style;
 };
 
-const assets = {
-    'collect': require('./images/tabicon/ic_home_tab_collect.png'),
-    'gank': require('./images/tabicon/ic_home_tab_gank.png'),
-    'girl': require('./images/tabicon/ic_home_tab_girl.png'),
-    'rec': require('./images/tabicon/ic_home_tab_rec.png'),
+const reducerCreate = params=>{
+    const defaultReducer = Reducer(params);
+    return (state, action)=>{
+        console.log("ACTION:", action);
+        return defaultReducer(state, action);
+    }
 };
 
 class RootPage extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.backButtonListeners = ([]: Array<() => boolean>);
-        this.onBack = this._onBack.bind(this);
-    }
-
-    componentDidMount() {
-        BackAndroid.addEventListener('hardwareBackPress', this.onBack);
-    }
-
-    componentWillUnmount() {
-        BackAndroid.removeEventListener('hardwareBackPress', this.onBack);
-    }
-
     render() {
         return (
-            <Router {...this.props} assets={assets} initial="home">
-                <Schema name="default" {...defaultSchema} />
-
-                <Route name="home" component={HomePage} hideNavBar={true} />
-                <Route name="about" component={AboutPage} />
-                <TabRoute name="tabBar" barTint='#FFFFFF' tint="#32DEAF">
-                    <Route name="tab1" component={CollectListPage} title="CollectList" tabItem={{icon: assets['collect'], title: 'Collect'}} />
-                    <Route name="tab2" component={GirlPage} title="Girl" tabItem={{icon: assets['girl'], title: 'Girl'}} />
-                </TabRoute>
+            <Router createReducer={reducerCreate} getSceneStyle={this.getSceneStyle}>
+                <Scene key="about" component={AboutPage} title="about" />
+                <Scene key="tabBar" tabs={true} tabBarStyle={styles.tabBarStyle} initial={true}>
+                    <Scene key="home" component={HomePage} icon={()=>{
+                        return <TabIcon title="home" src={require('./images/tabicon/ic_home_tab_gank.png')} />}}/>
+                    <Scene key="recommend" component={GankRecommendPage} icon={()=>{
+                        return <TabIcon title="recommend" src={require('./images/tabicon/ic_home_tab_rec.png')} />}} />
+                    <Scene key="girl" component={GirlPage} icon={()=>{
+                        return <TabIcon title="girl" src={require('./images/tabicon/ic_home_tab_girl.png')} />}}/>
+                    <Scene key="collect" component={CollectListPage} icon={()=>{
+                        return <TabIcon title="collect" src={require('./images/tabicon/ic_home_tab_collect.png')} />}}/>
+                </Scene>
             </Router>
         );
     }
 
-    _onBack() {
-        // 判断是否有子组件需要消耗返回键事件
-        for (let i = this.backButtonListeners.length - 1; i >= 0; i--) {
-            if (this.backButtonListeners[i]()) return true;
-        }
-
-        let navigator = this.navigator;
-
-        if (navigator && navigator.getCurrentRoutes().length > 1) {
-            navigator.pop();
-            return true;
-        }
-
-        let curTimestamp = new Date().getTime();
-
-        // 判断3秒内两次按返回键才真正退出APP
-        if (this.extTimestamp !== undefined && curTimestamp - this.extTimestamp <= 3000) {
-            // 真正退出
-            return false;
-        } else {
-            showToast('再按一次退出APP');
-            this.extTimestamp = curTimestamp;
-            return true;
-        }
-    }
-
 }
 
+class TabIcon extends Component {
+    render(){
+        console.log("tab-"+this.props.title, this);
+        // console.log("tab-"+this.props.title, this.props.selected);
+        return (
+            <View style={{flex:1, alignItems:'center',}}>
+                <Image source={this.props.src} width="80"/>
+                <Text style={{flex:1, color:this.props.selected?'green':'black',}}>{this.props.title}</Text>
+            </View>
+        );
+    }
+}
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(RootPage);
+export default RootPage;

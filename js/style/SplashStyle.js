@@ -26,6 +26,13 @@ const splash = ({
         color: '#D3D3D3',
         fontSize: 18,
         marginTop: 30,
+    },
+    tabBarStyle: {
+        borderTopWidth : .5,
+        borderColor    : '#b7b7b7',
+        backgroundColor: 'white',
+        opacity        : 1,
+        height:80,
     }
 });
 

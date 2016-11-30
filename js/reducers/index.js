@@ -1,5 +1,10 @@
-import { reducer as router } from 'react-native-router-redux';
+import { combineReducers } from 'redux';
+import routes from './routes';
+import switchTab from './switchTab';
+// ... other reducers
 
-export default {
-    router,
-};
+export default combineReducers({
+    routes,
+    switchTab,
+    // ... other reducers
+});
