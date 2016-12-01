@@ -3,6 +3,10 @@ import {View, Text} from 'react-native';
 
 export default class GankRecommendPage extends Component {
     render(){
-        return (<View><Text>GankRecommendPage</Text></View>);
+        return (
+            <View style={{flex:1, backgroundColor:'#ddd',justifyContent:'center',alignItems:'center'}}>
+                <Text>GankRecommendPage</Text>
+            </View>
+        );
     }
 }

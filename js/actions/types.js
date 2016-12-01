@@ -41,3 +41,8 @@ export const FETCH_COLLECT_DATA_STATUS = {
     REMOVE: 'fetch_remove_collect_data_status_success',
     COLLECT_STATUS: 'fetch_collect_status_data_status_success',
 };
+
+export const LOADING_STATE = {
+    LOAD_STATE_ING: 'ing',
+    LOAD_STATE_ERROR: 'error',
+};

@@ -21,6 +21,7 @@ import AboutPage from './pages/AboutPage';
 import GankRecommendPage from './pages/GankRecommendPage';
 import GirlPage from './pages/GirlPage';
 import CollectListPage from './pages/CollectListPage';
+import WebViewPage from './pages/WebViewPage';
 import {
     Router,
     Scene,
@@ -60,7 +61,7 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
 const reducerCreate = params=>{
     const defaultReducer = Reducer(params);
     return (state, action)=>{
-        console.log("ACTION:", action);
+        // console.log("ACTION:", action);
         return defaultReducer(state, action);
     }
 };
@@ -68,17 +69,14 @@ const reducerCreate = params=>{
 class RootPage extends Component {
     render() {
         return (
-            <Router createReducer={reducerCreate} getSceneStyle={this.getSceneStyle}>
+            <Router createReducer={reducerCreate} {...this.props}>
                 <Scene key="about" component={AboutPage} title="about" />
+                <Scene key="detail" component={WebViewPage}/>
                 <Scene key="tabBar" tabs={true} tabBarStyle={styles.tabBarStyle} initial={true}>
-                    <Scene key="home" component={HomePage} icon={()=>{
-                        return <TabIcon title="home" src={require('./images/tabicon/ic_home_tab_gank.png')} />}}/>
-                    <Scene key="recommend" component={GankRecommendPage} icon={()=>{
-                        return <TabIcon title="recommend" src={require('./images/tabicon/ic_home_tab_rec.png')} />}} />
-                    <Scene key="girl" component={GirlPage} icon={()=>{
-                        return <TabIcon title="girl" src={require('./images/tabicon/ic_home_tab_girl.png')} />}}/>
-                    <Scene key="collect" component={CollectListPage} icon={()=>{
-                        return <TabIcon title="collect" src={require('./images/tabicon/ic_home_tab_collect.png')} />}}/>
+                    <Scene key="home" component={HomePage} title="home" icon={TabIcon} />
+                    <Scene key="recommend" component={GankRecommendPage} title="recommend" icon={TabIcon} />
+                    <Scene key="girl" component={GirlPage} title="girl" icon={TabIcon}/>
+                    <Scene key="collect" component={CollectListPage} title="collect" icon={TabIcon}/>
                 </Scene>
             </Router>
         );
@@ -88,15 +86,30 @@ class RootPage extends Component {
 
 class TabIcon extends Component {
     render(){
-        console.log("tab-"+this.props.title, this);
-        // console.log("tab-"+this.props.title, this.props.selected);
+        // console.log("tab-"+this.props.title, this.props);
+        console.log("tab-"+this.props.title, this.props.selected);
+        let src;
+        switch (this.props.title){
+            case 'home':
+                src = require('./images/tabicon/ic_home_tab_gank.png');
+                break;
+            case 'recommend':
+                src = require('./images/tabicon/ic_home_tab_rec.png');
+                break;
+            case 'girl':
+                src = require('./images/tabicon/ic_home_tab_girl.png');
+                break;
+            case 'collect':
+                src = require('./images/tabicon/ic_home_tab_collect.png');
+                break;
+        }
         return (
             <View style={{flex:1, alignItems:'center',}}>
-                <Image source={this.props.src} width="80"/>
+                <Image source={src} width="80"/>
                 <Text style={{flex:1, color:this.props.selected?'green':'black',}}>{this.props.title}</Text>
             </View>
         );
     }
 }
 
-export default RootPage;
+export default connect(mapStateToProps, mapDispatchToProps)(RootPage);

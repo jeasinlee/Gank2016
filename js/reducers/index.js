@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import routes from './routes';
-import switchTab from './switchTab';
+import GankListReducer from './gankListReducer';
+import GankRecommendReducer from './gankRecReducer';
+import HomePageReducer from './homePageReducer';
 // ... other reducers
 
 export default combineReducers({
-    routes,
-    switchTab,
+    gankList: GankListReducer,
+    homePage: HomePageReducer,
+    // gankRecommendReducer: GankRecommendReducer,
     // ... other reducers
 });

@@ -11,6 +11,7 @@
     "react-native": "^0.38.0",
     "react-native-navbar": "1.5.x",
     "react-native-router-flux": "^3.37.0",
+    "react-native-spinkit": "^0.1.2",
     "react-native-tabs": "1.0.x",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0",
