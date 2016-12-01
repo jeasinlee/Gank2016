@@ -24,6 +24,7 @@ class CustomTitleBarComp extends Component {
     let titleBarBackgoundRgba = `rgba(156, 151, 139, ${this.state.opacity})`;
     return (
       <View style={[{backgroundColor: titleBarBackgoundRgba}, styles.container, this.props.titleBarStyle]}>
+        <View style={styles.titleBarContainer}></View>
         {this._renderHeaderTabContent()}
       </View>
     );
@@ -48,6 +49,7 @@ class CustomTitleBarComp extends Component {
       return;
     }
 
+    console.log('Customer',this);
     return (
       <CustomTitleBarHeaderTabComp ref="titleBarHeaderTab">
         {this.props.children}

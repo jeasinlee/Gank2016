@@ -7,8 +7,8 @@ import {
     BackAndroid,
 } from 'react-native';
 // import Button from 'react-native-button';
-import {Actions} from 'react-native-router-flux';
-import {showToast} from '../components/Toast';
+// import {Actions} from 'react-native-router-flux';
+// import {showToast} from '../components/Toast';
 import { connect } from 'react-redux';
 import ViewPagerComp from '../components/ViewPagerComp';
 import ListComp from '../components/ListComp';
@@ -45,12 +45,14 @@ class HomePage extends Component {
     //     BackAndroid.removeEventListener('hardwareBackPress', this.onBack);
     // }
     render(){
-        console.log("HomePage", this.props);
+        // console.log("HomePage", this.props);
         return (
             <View style={styles.container}>
-                <CustomTitleBarComp>
+                <CustomTitleBarComp
+                    ref="titleBar"
+                    isMainPage={true}>
                     <CustomTitleBarComp.HeaderTabItem
-                        tabText="Android"
+                        tabText={'Android'}
                         selected={this.props.selectedTabIndex == 0}
                         onTabClick={this._switchTitleBarTab.bind(this, 0)}
                     />
@@ -98,6 +100,7 @@ class HomePage extends Component {
 
     _onViewPageScroll(offset) {
         console.log('_onViewPageScroll');
+        this.refs.titleBar.onPageScroll(offset);
     }
 }
 const styles = StyleSheet.create({

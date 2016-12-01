@@ -73,7 +73,7 @@ class RootPage extends Component {
                 <Scene key="about" component={AboutPage} title="about" />
                 <Scene key="detail" component={WebViewPage}/>
                 <Scene key="tabBar" tabs={true} tabBarStyle={styles.tabBarStyle} initial={true}>
-                    <Scene key="home" component={HomePage} title="home" icon={TabIcon} />
+                    <Scene key="home" component={HomePage} hideNavBar="true" title="home" icon={TabIcon} />
                     <Scene key="recommend" component={GankRecommendPage} title="recommend" icon={TabIcon} />
                     <Scene key="girl" component={GirlPage} title="girl" icon={TabIcon}/>
                     <Scene key="collect" component={CollectListPage} title="collect" icon={TabIcon}/>
@@ -87,7 +87,7 @@ class RootPage extends Component {
 class TabIcon extends Component {
     render(){
         // console.log("tab-"+this.props.title, this.props);
-        console.log("tab-"+this.props.title, this.props.selected);
+        // console.log("tab-"+this.props.title, this.props.selected);
         let src;
         switch (this.props.title){
             case 'home':
