@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, View, Text, Image, Platform } from 'react-native';
-import CommonTouchableComp from './CommonTouchableComp';
 import CustomTitleBarHeaderTabComp from './CustomTitleBarHeaderTabComp';
-import { TITLE_BAR_HEIGHT, APP_MAIN_COLOR } from '../Constants';
+import CommonTouchableComp from './CommonTouchableComp';
 
+const IMG_BACK_SRC = require('../images/ic_back.png');
 
 class CustomTitleBarComp extends Component {
 
@@ -21,10 +21,45 @@ class CustomTitleBarComp extends Component {
   }
 
   render() {
+    let placeholderView;
+    let leftView;
+    let rightView;
+
+    console.log('bar', this);
+    if (this.props.onLeftBtnClick) {
+      leftView = (
+          <CommonTouchableComp onPress={this.props.onLeftBtnClick}>
+            <View style={styles.bothBtnContainer}>
+              <Image source={IMG_BACK_SRC} />
+            </View>
+          </CommonTouchableComp>
+      );
+    } else {
+      leftView = <View style={styles.placeholderView} />;
+    }
+
+    if (this.props.rightText) {
+      rightView = (
+          <CommonTouchableComp onPress={this.props.onRightBtnClick}>
+            <View style={styles.bothBtnContainer}>
+              <Text style={[styles.titleBarRightText, this.props.rightText.length > 3 && {fontSize: 12}]}>{this.props.rightText}</Text>
+            </View>
+          </CommonTouchableComp>
+      );
+    } else {
+      rightView = <View style={styles.placeholderView} />;
+    }
+
+
     let titleBarBackgoundRgba = `rgba(156, 151, 139, ${this.state.opacity})`;
     return (
-      <View style={[{backgroundColor: titleBarBackgoundRgba}, styles.container, this.props.titleBarStyle]}>
-        <View style={styles.titleBarContainer}></View>
+      <View style={[{backgroundColor: titleBarBackgoundRgba}, {paddingTop:(Platform.OS === 'android' && Platform.Version < 19) ?
+                0 : (Platform.OS === 'android' ? (this.props.onLeftBtnClick?0:24) : 20)}, this.props.titleBarStyle]}>
+        <View style={[styles.titleBarContainer,{height:this.props.onLeftBtnClick?60:0}]}>
+          {leftView}
+          <Text style={styles.titleBarTitle} numberOfLines={1}>{this.props.title}</Text>
+          {rightView}
+        </View>
         {this._renderHeaderTabContent()}
       </View>
     );
@@ -49,7 +84,7 @@ class CustomTitleBarComp extends Component {
       return;
     }
 
-    console.log('Customer',this);
+    // console.log('Customer',this);
     return (
       <CustomTitleBarHeaderTabComp ref="titleBarHeaderTab">
         {this.props.children}
@@ -58,7 +93,7 @@ class CustomTitleBarComp extends Component {
   }
 
 }
-
+const TITLE_BAR_HEIGHT = 0;
 
 const styles = StyleSheet.create({
   container: {
@@ -66,7 +101,6 @@ const styles = StyleSheet.create({
   },
   titleBarContainer: {
     flexDirection: 'row',
-    height: TITLE_BAR_HEIGHT,
   },
   titleBarTitle: {
     flex: 1,
@@ -77,10 +111,10 @@ const styles = StyleSheet.create({
     textAlign: Platform.OS === 'android' ? 'left' : 'center',
   },
   bothBtnContainer: {
-    width: TITLE_BAR_HEIGHT,
-    height: TITLE_BAR_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: 15,
+    paddingRight: 50,
   },
   titleBarRightText: {
     alignSelf: 'center',

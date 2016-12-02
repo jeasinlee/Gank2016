@@ -7,3 +7,10 @@ export const TITLE_BAR_HEIGHT = 55; // 自定义标题栏高度
 export const COMMON_BACKGROUND_COLOR = '#F5FCFF'; // 统一背景颜色
 
 export const APP_VERSION = 'v1.0'; // 统一背景颜色
+
+export const APP_TITLE = {
+    TITLE_HOME: '干货',
+    TITLE_RECOMMEND: '推荐',
+    TITLE_GIRL: '妹纸',
+    TITLE_COLLECT: '收藏',
+}

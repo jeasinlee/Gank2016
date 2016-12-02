@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, Animated } from 'react-native';
 import { TITLE_BAR_HEIGHT } from '../Constants';
 
-const TAB_WIDTH = 60;
+const TAB_WIDTH = 100;
 const TAB_HEIGHT = 30;
 
 class CustomTitleBarHeaderTabComp extends Component {
@@ -36,19 +36,18 @@ class CustomTitleBarHeaderTabComp extends Component {
 }
 
 class HeaderTabItem extends Component {
-    
+
   render() {
     return (
       <TouchableHighlight underlayColor={'rgba(0,0,0,0)'} onPress={this.props.onTabClick}>
         <View style={styles.headerTabsTextContainer}>
-          <Text style={styles.headerTabsText}>{this.props.tabText}</Text>
+          <Text style={[styles.headerTabsText, {color:this.props.selected?'red':'white'}]}>{this.props.tabText}</Text>
         </View>
       </TouchableHighlight>
     );
   }
 
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
   },
   headerTabsText: {
     fontSize: 16,
-    color: '#FFFFFF',
     textAlign: 'center',
   },
   headerTabsTextContainer: {
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 3,
     width: TAB_WIDTH,
-    backgroundColor: '#19D6B4',
+    backgroundColor: '#f00',
     bottom: 0,
   }
 });

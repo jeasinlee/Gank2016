@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import HorizontalProgressComp from '../components/HorizontalProgressComp';
 import { showToast } from '../components/Toast';
 import LoadView from '../components/LoadView';
+import { TITLE_BAR_HEIGHT } from '../Constants';
+import CustomTitleBarComp from '../components/CustomTitleBarComp';
+import {Actions} from 'react-native-router-flux';
 
 class WebViewPage extends Component{
     constructor(props) {
@@ -16,6 +19,17 @@ class WebViewPage extends Component{
     }
 
     render(){
+        let titleBar;
+        if (!this.props.hideTitleBar) {
+            titleBar = (
+                <CustomTitleBarComp
+                    title={this.props.title}
+                    onLeftBtnClick={() => Actions.pop()}
+                    rightText="收藏"
+                />
+            );
+        }
+
         let horizontalProgress;
         if(!this.state.loadEnd){
             horizontalProgress = (
@@ -32,6 +46,7 @@ class WebViewPage extends Component{
 
         return (
             <View style={{flex:1}}>
+                {titleBar}
                 <WebView
                     ref="webView"
                     source={{uri: this.props.url}}

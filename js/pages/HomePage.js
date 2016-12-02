@@ -48,9 +48,7 @@ class HomePage extends Component {
         // console.log("HomePage", this.props);
         return (
             <View style={styles.container}>
-                <CustomTitleBarComp
-                    ref="titleBar"
-                    isMainPage={true}>
+                <CustomTitleBarComp ref='titleBar'>
                     <CustomTitleBarComp.HeaderTabItem
                         tabText={'Android'}
                         selected={this.props.selectedTabIndex == 0}
@@ -94,12 +92,13 @@ class HomePage extends Component {
 
     _switchTitleBarTab(selIndex) {
         if (this.props.selectedTabIndex !== selIndex) {
+            console.log('startTime', new Date().getTime());
             this.props.dispatch(switchTitleBarTab(selIndex));
         }
     }
 
     _onViewPageScroll(offset) {
-        console.log('_onViewPageScroll');
+        // console.log('_onViewPageScroll',offset);
         this.refs.titleBar.onPageScroll(offset);
     }
 }

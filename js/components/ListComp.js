@@ -121,7 +121,8 @@ class ListComp extends Component{
 
     _onItemViewPress(data) {
         //todo
-        Actions.focus({
+        // Actions.
+        Actions.detail({
             title: data.desc,
             url: data.url,
         });
@@ -171,6 +172,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COMMON_BACKGROUND_COLOR,
+        marginBottom:90,
     },
     footerContainer: {
         flexDirection: 'row',
