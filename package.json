@@ -15,7 +15,8 @@
     "react-native-tabs": "1.0.x",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "realm": "0.14.3"
   },
   "jest": {
     "preset": "react-native"

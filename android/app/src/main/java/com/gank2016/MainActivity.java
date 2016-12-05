@@ -1,6 +1,7 @@
 package com.gank2016;
 
 import com.facebook.react.ReactActivity;
+import io.realm.react.RealmReactPackage;
 
 public class MainActivity extends ReactActivity {
 
