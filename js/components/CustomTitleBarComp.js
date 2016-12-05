@@ -25,7 +25,7 @@ class CustomTitleBarComp extends Component {
     let leftView;
     let rightView;
 
-    console.log('bar', this);
+    // console.log('bar', this);
     if (this.props.onLeftBtnClick) {
       leftView = (
           <CommonTouchableComp onPress={this.props.onLeftBtnClick}>

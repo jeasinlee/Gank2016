@@ -120,8 +120,6 @@ class ListComp extends Component{
     }
 
     _onItemViewPress(data) {
-        //todo
-        // Actions.
         Actions.detail({
             title: data.desc,
             url: data.url,
