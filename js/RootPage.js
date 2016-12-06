@@ -14,6 +14,7 @@ import {
     TouchableOpacity,
     Image,
     View,
+    BackAndroid,
 } from 'react-native';
 
 import HomePage from './pages/HomePage';
@@ -31,6 +32,7 @@ import {
 } from 'react-native-router-flux';
 import styles from './style/SplashStyle';
 import {APP_TITLE} from './Constants';
+import {showToast} from './components/Toast';
 
 const mapStateToProps = state => ({
     router: state.routes,
@@ -68,6 +70,62 @@ const reducerCreate = params=>{
 };
 
 class RootPage extends Component {
+    constructor(props){
+        super(props);
+
+        this.backButtonListeners = ([]: Array<() => boolean>);
+        this.onBack = this._onBack.bind(this);
+        this.addBackButtonListener = this._addBackButtonListener.bind(this);
+        this.removeBackButtonListener = this._removeBackButtonListener.bind(this);
+    }
+    //
+    // componentDidMount() {
+    //     BackAndroid.addEventListener('hardwareBackPress', this.onBack);
+    // }
+    //
+    // componentWillUnmount() {
+    //     BackAndroid.removeEventListener('hardwareBackPress', this.onBack);
+    // }
+
+    static childContextTypes = {
+        addBackButtonListener: React.PropTypes.func,
+        removeBackButtonListener: React.PropTypes.func,
+    };
+
+    getChildContext() {
+        return {
+            addBackButtonListener: this.addBackButtonListener,
+            removeBackButtonListener: this.removeBackButtonListener,
+        };
+    }
+
+    _addBackButtonListener(listener) {
+        this.backButtonListeners.push(listener);
+    }
+
+    _removeBackButtonListener(listener) {
+        this.backButtonListeners = this.backButtonListeners.filter((handler) => handler !== listener);
+    }
+
+    _onBack() {
+        // 判断是否有子组件需要消耗返回键事件
+        for (let i = this.backButtonListeners.length - 1; i >= 0; i--) {
+            if (this.backButtonListeners[i]()) return true;
+        }
+
+        let curTimestamp = new Date().getTime();
+
+        // 判断3秒内两次按返回键才真正退出APP
+        if (this.extTimestamp !== undefined && curTimestamp - this.extTimestamp <= 3000) {
+            // 真正退出
+            return false;
+        } else {
+            showToast('再按一次退出APP');
+            this.extTimestamp = curTimestamp;
+            return true;
+        }
+    }
+
     render() {
         return (
             <Router>
@@ -75,9 +133,9 @@ class RootPage extends Component {
                 <Scene key="detail" component={WebViewPage} hideNavBar="true" />
                 <Scene key="tabBar" tabs={true} tabBarStyle={styles.tabBarStyle} initial={true}>
                     <Scene key="home" component={HomePage} hideNavBar="true" title={APP_TITLE.TITLE_HOME} icon={TabIcon} />
-                    <Scene key="recommend" component={GankRecommendPage} title={APP_TITLE.TITLE_RECOMMEND} icon={TabIcon} />
+                    <Scene key="recommend" component={GankRecommendPage} hideNavBar="true" title={APP_TITLE.TITLE_RECOMMEND} icon={TabIcon} />
                     <Scene key="girl" component={GirlPage} title={APP_TITLE.TITLE_GIRL} icon={TabIcon}/>
-                    <Scene key="collect" component={CollectListPage} title={APP_TITLE.TITLE_COLLECT} icon={TabIcon}/>
+                    <Scene key="collect" component={CollectListPage} hideNavBar="true" title={APP_TITLE.TITLE_COLLECT} icon={TabIcon}/>
                 </Scene>
             </Router>
         );

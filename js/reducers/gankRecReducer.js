@@ -1,16 +1,40 @@
-import {SWITCH_TAB} from '../actions/types';
+import { FETCH_GANK_DAY_DATA_STATUS } from '../actions/types';
+import { DEBUG, RDEBUG } from '../Constants';
 
-export default function switchTab(state = {}, action = {}) {
+const initialState = {
+    status: FETCH_GANK_DAY_DATA_STATUS.INITIALIZE,
+    dataSource: {},
+    day: '',
+};
 
+export default function gankRecList(state = initialState, action = {}) {
+    if (DEBUG && RDEBUG) console.log('reducers -> gankDayComp -> [' + action.type + ']');
     switch (action.type) {
-        // focus action is dispatched when a new screen comes into focus
-        case SWITCH_TAB:
-            console.log("46689");
+        case FETCH_GANK_DAY_DATA_STATUS.INITIALIZE:
             return {
                 ...state,
-                curTab: action.payload,
+                status: action.type,
+                day: action.day,
             };
-
+        case FETCH_GANK_DAY_DATA_STATUS.START:
+            return {
+                ...state,
+                status: action.type,
+                day: action.day,
+            };
+        case FETCH_GANK_DAY_DATA_STATUS.SUCCESS:
+            return {
+                ...state,
+                dataSource: action.data,
+                status: action.type,
+                day: action.day,
+            };
+        case FETCH_GANK_DAY_DATA_STATUS.FAILURE:
+            return {
+                ...state,
+                status: action.type,
+                day: action.day,
+            };
         default:
             return state;
     }

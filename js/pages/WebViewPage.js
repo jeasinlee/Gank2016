@@ -8,6 +8,7 @@ import LoadView from '../components/LoadView';
 import { TITLE_BAR_HEIGHT } from '../Constants';
 import CustomTitleBarComp from '../components/CustomTitleBarComp';
 import {Actions} from 'react-native-router-flux';
+import { collectStatusAction, addCollectAction, removeCollectAction } from '../actions/collect';
 
 class WebViewPage extends Component{
     constructor(props) {
@@ -15,6 +16,22 @@ class WebViewPage extends Component{
 
         this.state = {
             loadEnd: false,
+        }
+        console.log('dsds');
+        this.addCollect = this._addCollect.bind(this);
+    }
+
+    componentDidMount(){
+        this.props.dispatch(collectStatusAction(this.props.url));
+    }
+
+    _addCollect(){
+        if(!this.props.isCollect) {
+            this.props.dispatch(addCollectAction(this.props.title !== undefined ? this.props.title : this.props.url, this.props.url));
+            showToast('收藏成功');
+        }else{
+            this.props.dispatch(removeCollectAction(this.props.url));
+            showToast('成功取消收藏');
         }
     }
 
@@ -25,7 +42,8 @@ class WebViewPage extends Component{
                 <CustomTitleBarComp
                     title={this.props.title}
                     onLeftBtnClick={() => Actions.pop()}
-                    rightText="收藏"
+                    rightText={this.props.isCollect ? '取消收藏' : '收藏'}
+                    onRightBtnClick={this.addCollect}
                 />
             );
         }
@@ -64,4 +82,10 @@ class WebViewPage extends Component{
     }
 }
 
-export default connect()(WebViewPage);
+function select(store) {
+    return {
+        isCollect: store.collectList.isCollect,
+    }
+}
+
+export default connect(select)(WebViewPage);
