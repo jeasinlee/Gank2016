@@ -24,15 +24,15 @@ class App extends Component {
     }
 
     render(){
-        // if(this.state.isShowSplash){
-        //     return <SplashScreen onAnimEnd={() => this.setState({isShowSplash:false})}/>
-        // }else {
+        if(this.state.isShowSplash){
+            return <SplashScreen onAnimEnd={() => this.setState({isShowSplash:false})}/>
+        }else {
             return (
                 <Provider store={store}>
                     <RootPage />
                 </Provider>
             )
-        // }
+        }
     }
 }
 

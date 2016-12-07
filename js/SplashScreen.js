@@ -49,7 +49,7 @@ export default class SplashScreen extends Component {
                         {rotate: this.state.fadeAnim.interpolate({
                             inputRange: [0, 1],
                             outputRange: [
-                                '0deg', '360deg' // 'deg' or 'rad'
+                                '0deg', '180deg' // 'deg' or 'rad'
                             ],
                         })},
                     ]}

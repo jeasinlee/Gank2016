@@ -138,7 +138,7 @@ class RootPage extends Component {
                 <Scene key="tabBar" tabs={true} tabBarStyle={styles.tabBarStyle} initial={true}>
                     <Scene key="home" component={HomePage} hideNavBar="true" title={APP_TITLE.TITLE_HOME} icon={TabIcon} />
                     <Scene key="recommend" component={GankRecommendPage} hideNavBar="true" title={APP_TITLE.TITLE_RECOMMEND} icon={TabIcon} />
-                    <Scene key="girl" component={GirlPage} title={APP_TITLE.TITLE_GIRL} icon={TabIcon}/>
+                    <Scene key="girl" component={GirlPage} title={APP_TITLE.TITLE_GIRL} hideNavBar="true" icon={TabIcon}/>
                     <Scene key="collect" component={CollectListPage} hideNavBar="true" title={APP_TITLE.TITLE_COLLECT} icon={TabIcon}/>
                 </Scene>
             </Router>
