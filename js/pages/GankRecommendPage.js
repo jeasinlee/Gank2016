@@ -10,6 +10,7 @@ import HistoryDaySelectorComp from '../components/HistoryDaySelectorComp';
 import { FETCH_GANK_DAY_DATA_STATUS, LOADING_STATE } from '../actions/types';
 import { fetchGankDay } from '../actions/gankApi';
 import { COMMON_BACKGROUND_COLOR, TITLE_BAR_HEIGHT } from '../Constants';
+import {Actions} from 'react-native-router-flux';
 
 const HEADER_PIC_HEIGHT = 330;
 const SCROLL_MAX_SIZE = HEADER_PIC_HEIGHT - TITLE_BAR_HEIGHT - ((Platform.OS === 'android' && Platform.Version < 19) ? 0 : (Platform.OS === 'android' ? 24 : 20));
@@ -142,7 +143,20 @@ class GankRecommendPage extends Component {
     }
 
     _onItemViewPress(title, url, categoryName){
-
+        if ('福利' === categoryName) {
+            // this.props.navigator.push({
+            //     component: ShowPicturePage,
+            //     picUrl: url,
+            // });
+            Actions.image({
+                picUrl: url,
+            })
+        } else {
+            Actions.detail({
+                title: title,
+                url: url,
+            })
+        }
     }
 
     render(){

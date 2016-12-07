@@ -17,12 +17,27 @@ class WebViewPage extends Component{
         this.state = {
             loadEnd: false,
         }
-        console.log('dsds');
         this.addCollect = this._addCollect.bind(this);
+        this.onBack = this._onBack.bind(this);
+    }
+
+    static contextTypes = {
+        addBackButtonListener: React.PropTypes.func,
+        removeBackButtonListener: React.PropTypes.func,
+    };
+
+    _onBack(){
+        Actions.pop();
+        return true;
     }
 
     componentDidMount(){
         this.props.dispatch(collectStatusAction(this.props.url));
+        this.context.addBackButtonListener(this.onBack);
+    }
+
+    componentWillUnmount(){
+        this.context.removeBackButtonListener(this.onBack);
     }
 
     _addCollect(){
@@ -41,7 +56,7 @@ class WebViewPage extends Component{
             titleBar = (
                 <CustomTitleBarComp
                     title={this.props.title}
-                    onLeftBtnClick={() => Actions.pop()}
+                    onLeftBtnClick={this.onBack}
                     rightText={this.props.isCollect ? '取消收藏' : '收藏'}
                     onRightBtnClick={this.addCollect}
                 />

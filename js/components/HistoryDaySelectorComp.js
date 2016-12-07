@@ -61,7 +61,7 @@ class HistoryDaySelectorComp extends Component {
         if (this.props.dataSource === undefined) return;
         return (
             <View style={{flex: 1}}>
-                <View style={{height: this.paddingTop + TITLE_BAR_HEIGHT, backgroundColor: APP_MAIN_COLOR}} />
+                <View style={{height: this.paddingTop + 35, backgroundColor: APP_MAIN_COLOR}} />
                 <ListView
                     style={{flex: 1}}
                     dataSource={this.state.listDataSource}
@@ -120,7 +120,7 @@ class HistoryDaySelectorComp extends Component {
     }
 
     _onDrawerOpen() {
-        console.log('hist', this.context);
+        // console.log('hist', this.context);
         this.context.addBackButtonListener(this.onBackButton);
     }
 

@@ -23,6 +23,7 @@ import GankRecommendPage from './pages/GankRecommendPage';
 import GirlPage from './pages/GirlPage';
 import CollectListPage from './pages/CollectListPage';
 import WebViewPage from './pages/WebViewPage';
+import ShowImagePage from './pages/ShowImagePage';
 import {
     Router,
     Scene,
@@ -78,14 +79,14 @@ class RootPage extends Component {
         this.addBackButtonListener = this._addBackButtonListener.bind(this);
         this.removeBackButtonListener = this._removeBackButtonListener.bind(this);
     }
-    //
-    // componentDidMount() {
-    //     BackAndroid.addEventListener('hardwareBackPress', this.onBack);
-    // }
-    //
-    // componentWillUnmount() {
-    //     BackAndroid.removeEventListener('hardwareBackPress', this.onBack);
-    // }
+
+    componentDidMount() {
+        BackAndroid.addEventListener('hardwareBackPress', this.onBack);
+    }
+
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('hardwareBackPress', this.onBack);
+    }
 
     static childContextTypes = {
         addBackButtonListener: React.PropTypes.func,
@@ -108,6 +109,8 @@ class RootPage extends Component {
     }
 
     _onBack() {
+        // console.log('root', this);
+
         // 判断是否有子组件需要消耗返回键事件
         for (let i = this.backButtonListeners.length - 1; i >= 0; i--) {
             if (this.backButtonListeners[i]()) return true;
@@ -128,9 +131,10 @@ class RootPage extends Component {
 
     render() {
         return (
-            <Router>
+            <Router onBackAndroid={this.onBack}>
                 <Scene key="about" component={AboutPage} title="about" />
                 <Scene key="detail" component={WebViewPage} hideNavBar="true" />
+                <Scene key="image" component={ShowImagePage} hideNavBar="true" />
                 <Scene key="tabBar" tabs={true} tabBarStyle={styles.tabBarStyle} initial={true}>
                     <Scene key="home" component={HomePage} hideNavBar="true" title={APP_TITLE.TITLE_HOME} icon={TabIcon} />
                     <Scene key="recommend" component={GankRecommendPage} hideNavBar="true" title={APP_TITLE.TITLE_RECOMMEND} icon={TabIcon} />
