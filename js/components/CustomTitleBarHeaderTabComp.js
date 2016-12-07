@@ -41,7 +41,7 @@ class HeaderTabItem extends Component {
     return (
       <TouchableHighlight underlayColor={'rgba(0,0,0,0)'} onPress={this.props.onTabClick}>
         <View style={styles.headerTabsTextContainer}>
-          <Text style={[styles.headerTabsText, {color:this.props.selected?'red':'white'}]}>{this.props.tabText}</Text>
+          <Text style={[styles.headerTabsText, {color:this.props.selected?'#73d655':'white'}]}>{this.props.tabText}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     marginLeft:TITLE_BAR_HEIGHT,
   },
   headerTabsText: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'center',
   },
   headerTabsTextContainer: {
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 3,
     width: TAB_WIDTH,
-    backgroundColor: '#f00',
+    backgroundColor: '#73d655',
     bottom: 0,
   }
 });

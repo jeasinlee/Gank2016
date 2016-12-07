@@ -202,7 +202,9 @@ const styles = StyleSheet.create({
     },
     separator: {
         height: 1,
-        backgroundColor: '#cccccc',
+        // backgroundColor: '#cccccc',
+        borderBottomWidth: 0.5,
+        borderColor: '#cccccc',
     },
 });
 

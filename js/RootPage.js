@@ -154,22 +154,34 @@ class TabIcon extends Component {
         let src;
         switch (this.props.title){
             case APP_TITLE.TITLE_HOME:
-                src = require('./images/tabicon/ic_home_tab_gank.png');
+                if(this.props.selected)
+                    src = require('./images/tabicon/ic_home_tab_gank_cur.png');
+                else
+                    src = require('./images/tabicon/ic_home_tab_gank.png');
                 break;
             case APP_TITLE.TITLE_RECOMMEND:
-                src = require('./images/tabicon/ic_home_tab_rec.png');
+                if(this.props.selected)
+                    src = require('./images/tabicon/ic_home_tab_rec_cur.png');
+                else
+                    src = require('./images/tabicon/ic_home_tab_rec.png');
                 break;
             case APP_TITLE.TITLE_GIRL:
-                src = require('./images/tabicon/ic_home_tab_girl.png');
+                if(this.props.selected)
+                    src = require('./images/tabicon/ic_home_tab_girl_cur.png');
+                else
+                    src = require('./images/tabicon/ic_home_tab_girl.png');
                 break;
             case APP_TITLE.TITLE_COLLECT:
-                src = require('./images/tabicon/ic_home_tab_collect.png');
+                if(this.props.selected)
+                    src = require('./images/tabicon/ic_home_tab_collect_cur.png');
+                else
+                    src = require('./images/tabicon/ic_home_tab_collect.png');
                 break;
         }
         return (
-            <View style={{flex:1, alignItems:'center',}}>
-                <Image source={src} width="80"/>
-                <Text style={{flex:1, fontFamily:'微软雅黑', color:this.props.selected?'green':'black',fontSize:18,fontWeight:this.props.selected?'bold':'normal'}}>{this.props.title}</Text>
+            <View style={{flex:1, alignItems:'center', }}>
+                <Image source={src} />
+                <Text style={{flex:1, fontFamily:'微软雅黑', color:this.props.selected?'green':'black',fontSize:20,}}>{this.props.title}</Text>
             </View>
         );
     }

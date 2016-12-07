@@ -5,26 +5,29 @@ const splash = ({
     container: {
         flex: 1,
         backgroundColor: APP_MAIN_COLOR,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: 50,
         alignItems: 'center',
     },
     image: {
-        width: 100,
-        height: 100,
+        width: 200,
+        height: 200,
         marginBottom: 15,
     },
     text1: {
         color: '#FFFFFF',
-        fontSize: 28,
+        fontSize: 40,
         fontWeight: 'bold',
+        marginBottom: 20,
     },
     text2: {
         color: '#D3D3D3',
-        fontSize: 15,
+        fontSize: 30,
+        marginBottom: 10,
     },
     text3: {
         color: '#D3D3D3',
-        fontSize: 18,
+        fontSize: 30,
         marginTop: 30,
     },
     tabBarStyle: {

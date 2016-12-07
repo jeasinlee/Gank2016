@@ -40,16 +40,20 @@ export default class SplashScreen extends Component {
                     transform: [   // Array order matters
                         {scale: this.state.fadeAnim.interpolate({
                             inputRange: [0, 1],
-                            outputRange: [1, 4],
+                            outputRange: [1, 2],
                         })},
                         {translateX: this.state.fadeAnim.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [0, 800],
+                        })},
+                        {translateY: this.state.fadeAnim.interpolate({
                             inputRange: [0, 1],
                             outputRange: [0, 500],
                         })},
                         {rotate: this.state.fadeAnim.interpolate({
                             inputRange: [0, 1],
                             outputRange: [
-                                '0deg', '180deg' // 'deg' or 'rad'
+                                '0deg', '360deg' // 'deg' or 'rad'
                             ],
                         })},
                     ]}
@@ -58,10 +62,6 @@ export default class SplashScreen extends Component {
                 </Animated.View>
                 <Animated.View style={{opacity: this.state.fadeAnim}}>
                     <Text style={styles.text1}>Gank.io</Text>
-                </Animated.View>
-
-                <Animated.View style={{opacity: this.state.fadeAnimOther, transform: transformTitle2}}>
-                    <Text style={styles.text2}>干货集中营</Text>
                 </Animated.View>
 
                 <Animated.View style={{opacity: this.state.fadeAnimOther, transform: transformTitle3}}>
