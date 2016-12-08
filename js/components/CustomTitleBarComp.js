@@ -51,7 +51,7 @@ class CustomTitleBarComp extends Component {
     }
 
 
-    let titleBarBackgoundRgba = `rgba(156, 151, 139, ${this.state.opacity})`;
+    let titleBarBackgoundRgba = `rgba(8, 109, 0, ${this.state.opacity})`;
     return (
       <View style={[{backgroundColor: titleBarBackgoundRgba}, {paddingTop:(Platform.OS === 'android' && Platform.Version < 19) ?
                 0 : (Platform.OS === 'android' ? ((this.props.onLeftBtnClick|| this.props.hasTitle) ?0:24) : 20)}, this.props.titleBarStyle]}>

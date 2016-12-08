@@ -7,6 +7,7 @@ import {
     View,
     TouchableOpacity,
     ActivityIndicator as ProgressBar,
+    Dimensions,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
     },
     image: {
         flex: 1,
-        height: 350,
+        height: Dimensions.get('window').width * 0.33 ,
         flexDirection: 'column',
         justifyContent: 'flex-end',
         margin: 10,
