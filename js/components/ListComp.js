@@ -6,6 +6,7 @@ import {
     Text,
     View,
     ActivityIndicator as ProgressBar,
+    Dimensions,
 } from 'react-native';
 import {connect} from 'react-redux';
 
@@ -16,6 +17,8 @@ import { showToast } from './Toast';
 import { COMMON_BACKGROUND_COLOR } from '../Constants';
 import CommonTouchableComp from './CommonTouchableComp';
 import {Actions} from 'react-native-router-flux';
+
+import Svg,{ Line } from 'react-native-svg';
 
 class ListComp extends Component{
     constructor(props) {
@@ -69,6 +72,8 @@ class ListComp extends Component{
     }
 
     render(){
+        let width = Dimensions.get("window").width;
+        let arr = [5,3];
         let contentView;
         if(this.props.status === FETCH_GANK_DATA_STATUS.INITIALIZE){
             contentView = <LoadView loadState={LOADING_STATE.LOAD_STATE_ING}/>;
@@ -83,7 +88,10 @@ class ListComp extends Component{
                     automaticallyAdjustContentInsets={false}
                     onEndReachedThreshold={5}
                     onEndReached={this.props.isLoadMore?this._onLoadMore.bind(this):null}
-                    renderSeparator={(sectionID, rowID)=><View key={`${sectionID}-${rowID}`} style={styles.separator} />}
+                    renderSeparator={(sectionID, rowID)=><Svg key={`${sectionID}-${rowID}`} height="3" width={width}>
+                                                            <Line x1="0" x2={width} y1="0" y2="0" strokeWidth="2" stroke="#d5d5d5"
+                                                            strokeDasharray={arr} />
+                                                        </Svg>}
                     renderFooter={this.props.isLoadMore?this._footerView: null}
                     refreshControl={
                         <RefreshControl

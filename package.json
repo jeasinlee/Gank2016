@@ -12,11 +12,12 @@
     "react-native-navbar": "1.5.x",
     "react-native-router-flux": "^3.37.0",
     "react-native-spinkit": "^0.1.2",
+    "react-native-svg": "^4.4.1",
     "react-native-tabs": "1.0.x",
     "react-redux": "^4.4.6",
+    "realm": "0.14.3",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0",
-    "realm": "0.14.3"
+    "redux-thunk": "^2.1.0"
   },
   "jest": {
     "preset": "react-native"

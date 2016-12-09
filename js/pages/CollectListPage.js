@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ListView, StyleSheet, View, Text, Platform} from 'react-native';
+import {ListView, StyleSheet, View, Text, Platform, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import {COMMON_BACKGROUND_COLOR} from '../Constants';
 import {FETCH_COLLECT_DATA_STATUS} from '../actions/types';
@@ -8,6 +8,7 @@ import CommonTouchableComp from '../components/CommonTouchableComp';
 import LoadView from '../components/LoadView';
 import {Actions} from 'react-native-router-flux';
 import { fetchCollectListAction } from '../actions/collect';
+import Svg,{ Line } from 'react-native-svg';
 
 class CollectListPage extends Component {
     constructor(props) {
@@ -31,6 +32,8 @@ class CollectListPage extends Component {
     }
 
     render() {
+        let width = Dimensions.get("window").width;
+        let arr = [5,3];
         let contentView;
         if (this.props.status === FETCH_COLLECT_DATA_STATUS.INITIALIZE) {
             contentView = <LoadView loadState="ing" />;
@@ -47,7 +50,10 @@ class CollectListPage extends Component {
                         automaticallyAdjustContentInsets={false}
                         dataSource={this.props.dataSource}
                         renderRow={this._renderItem.bind(this)}
-                        renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
+                        renderSeparator={(sectionID, rowID) => <Svg key={`${sectionID}-${rowID}`} height="3" width={width}>
+                                                            <Line x1="0" x2={width} y1="0" y2="0" strokeWidth="2" stroke="#d5d5d5"
+                                                            strokeDasharray={arr} />
+                                                        </Svg>}
                     />
                 );
             }

@@ -144,10 +144,6 @@ class GankRecommendPage extends Component {
 
     _onItemViewPress(title, url, categoryName){
         if ('福利' === categoryName) {
-            // this.props.navigator.push({
-            //     component: ShowPicturePage,
-            //     picUrl: url,
-            // });
             Actions.image({
                 picUrl: url,
             })
