@@ -18,14 +18,19 @@ class App extends Component {
     constructor(props){
         super(props);
 
+        this._unmount = false;
         this.state = {
             isShowSplash: true,
         }
     }
 
+    componentWillUnmount(){
+        this._unmount = true;
+    }
+
     render(){
         if(this.state.isShowSplash){
-            return <SplashScreen onAnimEnd={() => this.setState({isShowSplash:false})}/>
+            return <SplashScreen onAnimEnd={() => !this._unmount && this.setState({isShowSplash:false})}/>
         }else {
             return (
                 <Provider store={store}>
