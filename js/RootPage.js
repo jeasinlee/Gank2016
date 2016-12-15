@@ -35,41 +35,6 @@ import styles from './style/SplashStyle';
 import {APP_TITLE} from './Constants';
 import {showToast} from './components/Toast';
 
-const mapStateToProps = state => ({
-    router: state.routes,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators({
-        ...Actions,
-    }, dispatch),
-    dispatch,
-});
-
-const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
-    const style = {
-        flex: 1,
-        backgroundColor: '#fff',
-        shadowColor: null,
-        shadowOffset: null,
-        shadowOpacity: null,
-        shadowRadius: null,
-    };
-    if (computedProps.isActive) {
-        style.marginTop = computedProps.hideNavBar ? 0 : 64;
-        style.marginBottom = computedProps.hideTabBar ? 0 : 50;
-    }
-    return style;
-};
-
-const reducerCreate = params=>{
-    const defaultReducer = Reducer(params);
-    return (state, action)=>{
-        // console.log("ACTION:", action);
-        return defaultReducer(state, action);
-    }
-};
-
 class RootPage extends Component {
     constructor(props){
         super(props);
@@ -131,7 +96,7 @@ class RootPage extends Component {
 
     render() {
         return (
-            <Router onBackAndroid={this.onBack}>
+            <Router>
                 <Scene key="about" component={AboutPage} title="about" />
                 <Scene key="detail" component={WebViewPage} hideNavBar="true" />
                 <Scene key="image" component={ShowImagePage} hideNavBar="true" />
@@ -181,7 +146,7 @@ class TabIcon extends Component {
         return (
             <View style={{flex:1, alignItems:'center', }}>
                 <Image source={src} />
-                <Text style={{flex:1, fontFamily:'微软雅黑', color:this.props.selected?'green':'black',fontSize:20,}}>{this.props.title}</Text>
+                <Text style={{flex:1, color:this.props.selected?'green':'black',fontSize:20,}}>{this.props.title}</Text>
             </View>
         );
     }

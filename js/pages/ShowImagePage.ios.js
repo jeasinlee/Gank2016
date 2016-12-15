@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { StyleSheet, View, WebView, Dimensions, Platform } from 'react-native';
 import CustomTitleBarComp from '../components/CustomTitleBarComp';
 import LoadView from '../components/LoadView';
-import RNTouchImageView from '../components/TouchImageComp';
 import {Actions} from 'react-native-router-flux';
 
 class ShowImagePage extends Component {
@@ -36,30 +35,20 @@ class ShowImagePage extends Component {
 
     render() {
         let contentView;
-        if (Platform.OS === 'android') {
-            contentView = (
-                <RNTouchImageView
-                    src={this.props.picUrl}
-                    style={{height: Dimensions.get('window').height}}
-                    onClick={this.onBack}
-                />
-            );
-        } else {
-            contentView = (
-                <WebView
-                    ref="webView"
-                    source={{uri: this.props.picUrl}}
-                    javaScriptEnabled={true}
-                    domStorageEnabled={true}
-                    decelerationRate="normal"
-                    startInLoadingState={true}
-                    scalesPageToFit={true}
-                    renderLoading={() => <LoadView loadState="ing" />}
-                    renderError={() => <LoadView loadState="error" onRetry={() => this.refs.webView.reload()} />}
-                />
-            );
-        }
 
+        contentView = (
+            <WebView
+                ref="webView"
+                source={{uri: this.props.picUrl}}
+                javaScriptEnabled={true}
+                domStorageEnabled={true}
+                decelerationRate="normal"
+                startInLoadingState={true}
+                scalesPageToFit={true}
+                renderLoading={() => <LoadView loadState="ing" />}
+                renderError={() => <LoadView loadState="error" onRetry={() => this.refs.webView.reload()} />}
+            />
+        );
 
         return (
             <View style={{flex: 1, backgroundColor: '#000000'}}>
