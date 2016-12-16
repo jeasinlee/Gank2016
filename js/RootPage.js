@@ -96,7 +96,7 @@ class RootPage extends Component {
 
     render() {
         return (
-            <Router>
+            <Router onBackAndroid={this.onBack}>
                 <Scene key="about" component={AboutPage} title="about" />
                 <Scene key="detail" component={WebViewPage} hideNavBar="true" />
                 <Scene key="image" component={ShowImagePage} hideNavBar="true" />
