@@ -30,7 +30,7 @@ export default function girlListComp(state=initialState, action) {
             };
         case FETCH_GIRL_DATA_STATUS.SUCCESS:
             let newContent = action.opt === 2 ? [...state.dataArray, ...action.data.results] : action.data.results;
-            let isLoadMore = action.data.results.length === 10;
+            let isLoadMore = action.data.results.length === 12;
             return {
                 ...state,
                 dataArray: newContent,

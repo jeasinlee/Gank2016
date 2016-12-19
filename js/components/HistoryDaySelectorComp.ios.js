@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Modal, PickerIOS, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, PickerIOS, TouchableHighlight } from 'react-native';
 
 import CommonTouchableComp from './CommonTouchableComp';
 import { COMMON_BACKGROUND_COLOR, TITLE_BAR_HEIGHT, APP_MAIN_COLOR } from '../Constants';
 import OvalButtonComp from './OvalButtonComp';
+import Modal from 'react-native-modalbox';
 
 
 class HistoryDaySelectorComp extends Component {
@@ -28,9 +29,9 @@ class HistoryDaySelectorComp extends Component {
                     <PickerIOS style={{height: 230}}
                                selectedValue={this.state.selDay}
                                animationType="fade"
-                               onValueChange={(itemValue, itemPosition) => this.state.setState({selDay: itemValue})}>
+                               onValueChange={(itemValue, itemPosition) => this.setState({selDay: itemValue})}>
                         {this.state.dataSource.map((day, index) => {
-                            return (<PickerIOS.Item key={index} label={'第' + day + '期'} />);
+                            return (<PickerIOS.Item key={index} label={'第' + day + '期'} value={day} />);
                         })}
                     </PickerIOS>
                     <View style={{flexDirection: 'row', marginTop: 20, marginBottom: 20}}>
@@ -49,7 +50,7 @@ class HistoryDaySelectorComp extends Component {
             <Modal
                 transparent={true}
                 style={{flex: 1}}
-                visiable={this.state.visible}
+                isOpen={this.state.visible}
                 onRequestClose={this.hideMode}>
                 {contentView}
                 <TouchableHighlight style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}} underlayColor="rgba(0,0,0,0)"

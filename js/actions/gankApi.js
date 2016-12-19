@@ -16,10 +16,10 @@ const PAGE_NUM = 10;
  * pageNo：  当前加载的页码
  * ext：     扩展字段
  */
-function fetchGankCategoryList(typeObj, opt, category, pageNo, ext) {
+function fetchGankCategoryList(typeObj, opt, category, pageNo, ext, pageNum) {
     return (dispatch) => {
         dispatch({type: typeObj.START, opt: opt});
-        let reqUrl = `http://gank.io/api/data/${category}/${PAGE_NUM}/${pageNo}`;
+        let reqUrl = `http://gank.io/api/data/${category}/${pageNum||PAGE_NUM}/${pageNo}`;
         RLOG('fetchGankList：' + reqUrl);
         return fetch(reqUrl)
             .then((response) => response.json())
@@ -47,7 +47,7 @@ export function fetchGankList(opt, category, pageNo, ext) {
  */
 export function fetchGirlList(opt, pageNo) {
     RLOG('actions -> gankApi -> fetchGirlList >>>>>>>>>>>>>> ');
-    return fetchGankCategoryList(FETCH_GIRL_DATA_STATUS, opt, '福利', pageNo);
+    return fetchGankCategoryList(FETCH_GIRL_DATA_STATUS, opt, '福利', pageNo, null, 12);
 }
 
 /**
