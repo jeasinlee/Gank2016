@@ -15,8 +15,6 @@ class HistoryDaySelectorComp extends Component {
 
     constructor(props, context) {
         super(props, context);
-
-
         this.paddingTop = (Platform.OS === 'android' && Platform.Version < 19) ? 0 : (Platform.OS === 'android' ? 24 : 20);
         this.curPageNo = 1;
         this.renderDayHistoryDrawerMenuView = this._renderDayHistoryDrawerMenuView.bind(this);
