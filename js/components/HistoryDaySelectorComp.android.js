@@ -21,7 +21,6 @@ class HistoryDaySelectorComp extends Component {
         this.onDrawerOpen = this._onDrawerOpen.bind(this);
         this.onDrawerClose = this._onDrawerClose.bind(this);
         this.onBackButton = this._onBackButton.bind(this);
-
         this.state = {
             isLoadMore: true,
             listDataSource: new ListView.DataSource({
