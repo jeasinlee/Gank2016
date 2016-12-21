@@ -91,6 +91,9 @@ class HistoryDaySelectorComp extends Component {
      */
     _onLoadMore() {
         this.curPageNo ++;
+        if(!this.fullOriginalData){
+                return
+        }
         if (this.curPageNo * PAGE_MAX_SIZE >= this.fullOriginalData.length) {
             this.setState({
                 isLoadMore: false,
