@@ -8,7 +8,8 @@
 开发的gan app，已经完美兼容android和IOS。
 
 ### 涉及到的知识点：
-- [X] react
+
+- [X] react 
 - [X] redux
 - [X] realm
 - [X] svg
